@@ -1,0 +1,62 @@
+// Title: Formulas for 3D and N-Dimensional Arrays
+// Author: Inam Ul Haq
+// Explanation:
+//
+//     First, let's see 3D arrays:
+//         Type A[D1][D2][D3]
+//
+// ----------------------------------------------------------------------
+// Row-Major Formula for 3D:
+//
+//     In row-major, we go from left to right (i → j → k)
+//     i.e. first index changes slowest, last index changes fastest.
+//
+//     To calculate address of A[i][j][k]:
+//
+//         1. Multiply each index by the product of all dimensions to its right.
+//         2. Sum all results.
+//         3. Multiply by sizeof(type) and add base_address.
+//
+//     Formula:
+//         address(A[i][j][k]) = base_address +
+//             [ i*(D2*D3) + j*(D3) + k ] * sizeof(type)
+//
+// ----------------------------------------------------------------------
+// Column-Major Formula for 3D:
+//
+//     In column-major, we go from right to left (k → j → i)
+//     i.e. last index changes slowest, first index changes fastest.
+//
+//     Formula:
+//         address(A[i][j][k]) = base_address +
+//             [ k*(D2*D1) + j*(D1) + i ] * sizeof(type)
+//
+// ----------------------------------------------------------------------
+// Generalization to N-Dimensional Arrays:
+//
+//     Suppose we have a general N-dimensional array:
+//         Type A[D1][D2][D3]...[Dn]
+//
+// Row-Major Formula:
+//
+//     Left to right (i1 → i2 → ... → in), first index changes slowest,
+//     last index changes fastest.
+//
+//     Formula:
+//         address(A[i1..in]) = base_address +
+//             [ i1*(D2*D3*...*Dn) + i2*(D3*...*Dn) + ... + in ] * sizeof(type)
+//
+// Column-Major Formula:
+//
+//     Right to left (in → in-1 → ... → i1), last index changes slowest,
+//     first index changes fastest.
+//
+//     Formula:
+//         address(A[i1..in]) = base_address +
+//             [ in*(Dn-1*Dn-2*...*D1) + in-1*(Dn-2*...*D1) + ... + i1 ] * sizeof(type)
+//
+// ----------------------------------------------------------------------
+// Notes:
+//
+//     - Row-major is used by C/C++
+

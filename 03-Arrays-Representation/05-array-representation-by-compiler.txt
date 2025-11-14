@@ -1,0 +1,43 @@
+// Title: Array Representation by Compiler
+// Author: Inam Ul Haq
+// Explanation:
+//     When we define a variable, e.g., int x = 10, the size of memory is decided at 
+//     compile time, but the memory is allocated at run time when the program executes. 
+//     After allocation, the address of the variable is known, and the value 10 is stored 
+//     at that address.
+//
+//     In machine code, variable names do not exist; they are converted into memory 
+//     addresses. So, when is memory allocated? At run time. When are addresses known? 
+//     Only after memory allocation. This raises a question: if addresses are known only 
+//     at run time, how does the compiler translate variable names into addresses during 
+//     compilation? We will understand this through arrays.
+//
+// Example:
+//     Suppose we have an integer array: int arr[3] = {1, 2, 3};
+//     Memory for this array is allocated at run time, and once allocated, the base 
+//     address (say arr = 200) is known. Then:
+//         arr[0] → 200
+//         arr[1] → 204
+//         arr[2] → 208
+//
+//     Now, if we write arr[2] = 10; we are updating the value at index 2.
+//     Remember: in machine code, the array name does not exist—it is replaced by addresses. 
+//     But since addresses are only known at run time, how can arr[2] = 10 work?
+//
+//     The reason is that the compiler converts arr[i] into a formula:
+//         address = base_address + (i * sizeof(int))
+//     Here, sizeof(int) and the indexing calculation are known at compile time, 
+//     while the base_address is provided at run time when memory is allocated.
+//     This is how arr[2] = 10 successfully refers to address 208 in machine code.
+//
+// Generalized formula:
+//     The above formula works for 0-based indexing (as in C/C++).
+//     If indexing started from 1 instead of 0, the formula would be:
+//         address = base_address + ((index - 1) * sizeof(type))
+//     If indexing started from some arbitrary value 'k':
+//         address = base_address + ((index - k) * sizeof(type))
+//
+// Why C and C++ strictly use 0-based indexing:
+//     1. It makes the address formula simple: base_address + (index * size).
+//     2. It matches pointer arithmetic: arr[i] is the same as *(arr + i).
+//     3. Historically, C was designed close to assembly, where offsets start from 0.
