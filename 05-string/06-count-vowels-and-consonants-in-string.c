@@ -35,7 +35,7 @@ void countVowelsAndConsonants(char *s){
 	for(int i=0;s[i]!='\0';i++){
 		int ASCIIcode=s[i];
 		if(ASCIIcode >= 65 && ASCIIcode <=90 || ASCIIcode >= 97 && ASCIIcode <= 122)
-			if(s[i]=='A' || s[i]=='a' || s[i]=='E' || s[i]=='e' || s[i]=='I' || s[i]=='i' || s[i]=='O' || s[i]=='o' || s[i]=='U' || s[i]=='u' || s[i]=='V' || s[i]=='v'){
+			if(s[i]=='A' || s[i]=='a' || s[i]=='E' || s[i]=='e' || s[i]=='I' || s[i]=='i' || s[i]=='O' || s[i]=='o' || s[i]=='U' || s[i]=='u' ){
 				vCounts++;
 			}else{
 				cCounts++;
