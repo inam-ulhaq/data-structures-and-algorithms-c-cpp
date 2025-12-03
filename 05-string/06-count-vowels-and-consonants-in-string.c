@@ -21,8 +21,7 @@
 		(either A-Z or a-z) to ignore spaces and punctuation.
 	5. If it is a letter, we use a conditional check (if/else) to determine if the 
 		specific character is a vowel ('a', 'e', 'i', 'o', 'u', and their uppercase 
-		equivalents—note that 'V' and 'v' are typically treated as consonants, so 
-		they are moved to the consonant count in this logic).
+		equivalents).
 	6. Finally, the total counts are printed to the console.
 */
 
