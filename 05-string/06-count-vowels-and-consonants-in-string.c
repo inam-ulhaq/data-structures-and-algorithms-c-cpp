@@ -1,48 +1,53 @@
 /*
-Title: Counting Words in a String with Edge Case Handling
-Author: Inam Ul Haq
-Description:
-	This program counts the number of words in a given C-style string, specifically
-	designed to handle leading, trailing, and potentially extra spaces.
-	A word is defined as a sequence of characters delimited by single or multiple spaces.
+ Title: Counting Vowels and Consonants in C
+ Author: Inam Ul Haq
+ Description:
+	The goal is to analyze a given C-style string and determine the total counts 
+	of both vowels and consonants present within it.
 
-	The function int wordsCount(char *s) conceptualizes word counting as detecting
-	the precise moment we transition from a non-space character to a space character,
-	while ensuring we don't count spaces at the very beginning or very end of the string.
+	We accomplish this by iterating through the character array and checking each 
+	character against the set of English alphabet letters (both uppercase and lowercase).
 
-	In the implementation:
-	1. The function accepts a pointer (char *s) and returns the total word count as an integer.
-	2. It initializes a word counter (wCounts) to zero.
-	3. It iterates through the string character by character until the null terminator (\0) is encountered.
-	4. Word Boundary Logic: The core if statement includes robust checks:
-		* i != 0: Ensures we are not checking an invalid s[i-1] index (prevents crashes).
-		* s[i-1] != 32 (or ' '): Checks that the previous character was not a space (we were inside a word).
-		* s[i] == 32 (or ' '): Checks that the current character is a space (we just exited a word).
-		* s[i+1] != '\0': Crucially, this prevents counting the final trailing space in the array as the start 
-		  of a "new" word count, ensuring the final +1 addition works correctly even with extra spaces at the end.
-	5. The function returns wCounts + 1. This assumes that after filtering out leading/trailing spaces with the 
-		loop logic, the total number of words will be exactly one more than the number of valid space transitions 
-		detected mid-sentence.
-*/ 
+	Consider the following function implementation:
+	void countVowelsAndConsonants(char *s){ ... }
+
+	In the implementation above:
+	1. The function accepts a pointer (char *s), allowing it to read the characters 
+		from the original array (sentance in the main function).
+	2. We initialize counters for vowels (vCounts) and consonants (cCounts).
+	3. We iterate through the string character by character until the null terminator (\0) 
+		is encountered.
+	4. Inside the loop, we first check if the character is an alphabet letter 
+		(either A-Z or a-z) to ignore spaces and punctuation.
+	5. If it is a letter, we use a conditional check (if/else) to determine if the 
+		specific character is a vowel ('a', 'e', 'i', 'o', 'u', and their uppercase 
+		equivalents).
+	6. Finally, the total counts are printed to the console.
+*/
 
 
 #include <stdio.h>
 
-int wordsCount(char *s){
-	int wCounts=0;
+
+void countVowelsAndConsonants(char *s){
+	int vCounts=0;
+	int cCounts=0;
 	for(int i=0;s[i]!='\0';i++){
-		int charaterASCII=s[i];
-		if(i!=0 && (int)s[i-1] !=32 && (int)s[i]==32 && (int)s[i+1]!='\0'){
-			wCounts++;
-		}
+		int ASCIIcode=s[i];
+		if(ASCIIcode >= 65 && ASCIIcode <=90 || ASCIIcode >= 97 && ASCIIcode <= 122)
+			if(s[i]=='A' || s[i]=='a' || s[i]=='E' || s[i]=='e' || s[i]=='I' || s[i]=='i' || s[i]=='O' || s[i]=='o' || s[i]=='U' || s[i]=='u' ){
+				vCounts++;
+			}else{
+				cCounts++;
+			}
 	}
-	return wCounts+1;
+	printf("Consonant: %d  Vowals: %d\n",cCounts,vCounts);
 	
 }
 
 int main(){
-	char sentance[15]="Hi this is Inam";
-	int totalWords=wordsCount(sentance);
-	printf("Total words are: %d",totalWords);
+	char sentance[15]="how are you?";
+	countVowelsAndConsonants(sentance);
+	
 	return 0;
 }
