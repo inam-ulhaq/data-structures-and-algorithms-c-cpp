@@ -105,5 +105,6 @@ int main(){
 		}
 		printf("\n");
 	}
-	
+	freeMatrix(&m);
+	return 0;
 }
