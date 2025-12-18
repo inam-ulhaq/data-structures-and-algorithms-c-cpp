@@ -28,50 +28,56 @@ struct Node{
 };
 
 void initNode(struct Node *node,int data){
-		node->data=data;
-		node->next=NULL;
-	}
+	node->data=data;
+	node->next=NULL;
+}
 
 void reverseRec(struct Node* first){
+	
 	if(first!=NULL){
 		reverseRec(first->next);
-		printf("%d <- ",first->data);
+		printf(" <-%d",first->data);
+	}else{
+		printf("NULL");
 	}
 }
 
 void  displayRec(struct Node* first){
+	
 	if(first!=NULL){
 		printf("%d -> ",first->data);
 		displayRec(first->next);
 	}else
-		printf("NULL");
+		printf("NULL\n");
 }
 
-
-void display(struct Node *ptr){
-	while(ptr!=0){
-		printf("%d -> ",ptr->data);
-		ptr=ptr->next;
-	}
-	printf("NULL");
-}
 struct Node* insertAtBeginning(struct Node* first,int value){
 	struct Node* newNode= malloc(sizeof(struct Node));
-	initNode(first,value);
-	if(first==NULL){
-		first=newNode;
-	}else{
-		newNode->next=first;
-		first=newNode;
-	}
-	
+	initNode(newNode,value);
+	newNode->next=first;
+	return newNode;
 }
+
+void freeNodes(struct Node* head){
+	if(head==NULL){
+		return;
+	}else{
+		freeNodes(head->next);
+		free(head);
+	}
+}
+
 int main(){
-	struct Node* head=0;
+	struct Node* head=NULL;
 	for(int i=0;i<10;i++)
 		head=insertAtBeginning(head,i);
+		
 	displayRec(head);
 	reverseRec(head);
+	
+	freeNodes(head);
+	
+	return 0;
 }
 
 //--------------------------------------
@@ -83,17 +89,18 @@ int main(){
 //
 // Case (a): When pointer is not NULL (i.e. node exists)
 // ------------------------------------------------------
-//	if(first != nullptr)        → takes 1 unit of time
-//	cout << first->data << "->" → takes 1 unit of time
-//	displayRec(first->next)     → takes T(n-1) time
+//	if(first != nullptr)        -> takes 1 unit of time
+//	printf("%d -> ",first->data)-> takes 1 unit of time
+//	displayRec(first->next)     -> takes T(n-1) time
 //
 // So total work done for this case = 1 + 1 + T(n-1)
 // Hence,  T(n) = T(n-1) + 2
 //
 // Case (b): When pointer becomes NULL (Base Case)
 // ------------------------------------------------
-//	if(first != nullptr)  → takes 1 unit of time
-//	cout << "NULL";       → takes 1 unit of time
+//	else 
+//	printf("NULL")      -> takes 1 unit of time
+//  return; 			-> takes 1 unite of time
 //
 // So total = 1 + 1 = 2 units
 //
